@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{ce69a5a0-9e2f-4b4e-ae5d-573411eb2afd}</ProjectGuid>
+    <ProjectHome />
+    <StartupFile>PyleEditor.py</StartupFile>
+    <SearchPath />
+    <WorkingDirectory>.</WorkingDirectory>
+    <OutputPath>.</OutputPath>
+    <ProjectTypeGuids>{888888a0-9f3d-457c-b088-3a5042f75d52}</ProjectTypeGuids>
+    <LaunchProvider>Standard Python launcher</LaunchProvider>
+    <InterpreterId />
+    <InterpreterVersion />
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)' == 'Debug'" />
+  <PropertyGroup Condition="'$(Configuration)' == 'Release'" />
+  <PropertyGroup>
+    <VisualStudioVersion Condition=" '$(VisualStudioVersion)' == '' ">10.0</VisualStudioVersion>
+    <PtvsTargetsFile>$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets</PtvsTargetsFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Content Include="Sprites\ActiveMenu.png" />
+    <Content Include="Sprites\basic_block.png" />
+    <Content Include="Sprites\block_cement.png" />
+    <Content Include="Sprites\Menu.png" />
+    <Content Include="Sprites\SmallActiveMenu.png" />
+    <Content Include="Sprites\SmallMenu.png" />
+    <Content Include="test.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="PyleEditor.py" />
+    <Compile Include="PyleHelper.py" />
+    <Compile Include="resources.py" />
+    <Compile Include="Sprite_Manager.py" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Sprites" />
+  </ItemGroup>
+  <Import Project="$(PtvsTargetsFile)" Condition="Exists($(PtvsTargetsFile))" />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets" Condition="!Exists($(PtvsTargetsFile))" />
+</Project>
