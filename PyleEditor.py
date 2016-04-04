@@ -18,7 +18,6 @@ class Pyle_Editor():
         self.height = 768
         self.wait = 100
         self.screen = pygame.display.set_mode((self.width, self.height), pygame.FULLSCREEN|pygame.RESIZABLE)
-
         self.box_size = 32
         self.mouse_col = 0
         self.mouse_row = 0
@@ -50,7 +49,7 @@ class Pyle_Editor():
             self.clock.tick_busy_loop(60)
                 
         pygame.quit()
-    
+
     def draw(self):
         self.sidebar.draw()
         
@@ -64,16 +63,28 @@ class Pyle_Editor():
         self.draw_grid()
 
     def mouse_update(self):
+        for event in pygame.event.get():
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if (event.button == 4):
+                        self.sidebar.grid_offset -= 5
+                elif (event.button == 5):
+                    if self.sidebar.grid_offset < 0:
+                        self.sidebar.grid_offset += 5
+
         if pygame.mouse.get_pos()[0] < resources.width and pygame.mouse.get_pos()[0] > 0 and pygame.mouse.get_pos()[1] < resources.height and pygame.mouse.get_pos()[1] > 0:
             if pygame.mouse.get_pressed()[0]:
                 self.mouse_col = pygame.mouse.get_pos()[0] // self.box_size
                 self.mouse_row = pygame.mouse.get_pos()[1] // self.box_size
-                self.area.edit_tile(self.mouse_col, self.mouse_row, self.selection)
+                if (self.selection != "erase_block.png"):
+                    self.area.edit_tile(self.mouse_col, self.mouse_row, self.selection)
+                else:
+                    self.area.edit_tile(self.mouse_col, self.mouse_row, "X")
         
-        elif (pygame.mouse.get_pos()[0] > resources.width and pygame.mouse.get_pos()[0] < self.width and pygame.mouse.get_pos()[1] < self.height and pygame.mouse.get_pos()[1] > 0):
+        elif (pygame.mouse.get_pos()[0] > resources.width and pygame.mouse.get_pos()[0] < self.width and pygame.mouse.get_pos()[1] < (resources.height - (60*3)) and pygame.mouse.get_pos()[1] > 0):
             if pygame.mouse.get_pressed()[0]:
                 self.mouse_col = (pygame.mouse.get_pos()[0] - resources.width) // self.box_size
-                self.mouse_row = (pygame.mouse.get_pos()[1] - resources.height) // self.box_size
+                self.mouse_row = (pygame.mouse.get_pos()[1] + self.sidebar.grid_offset) // self.box_size
+                #print(self.mouse_row)
                 self.selection = self.sidebar.get_griditem(self.mouse_col, self.mouse_row)
             
     def key_update(self):
